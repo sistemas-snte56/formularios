@@ -14,8 +14,8 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
-    'title_prefix' => '',
+    'title' => 'Inicio',
+    'title_prefix' => 'Sección 56 | ',
     'title_postfix' => '',
 
     /*
@@ -63,8 +63,8 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>SNTE</b> Sección 56',
+    'logo_img' => 'vendor/adminlte/dist/img/icon.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -110,10 +110,10 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/icon.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
@@ -171,12 +171,23 @@ return [
     |
     */
 
-    'classes_auth_card' => 'card-outline card-primary',
-    'classes_auth_header' => '',
-    'classes_auth_body' => '',
-    'classes_auth_footer' => '',
-    'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-primary',
+    /*
+    |--------------------------------------------------------------------------
+    | Classes Default
+    |--------------------------------------------------------------------------    
+        'classes_auth_card' => 'card-outline card-primary',
+        'classes_auth_header' => '',
+        'classes_auth_body' => '',
+        'classes_auth_footer' => '',
+        'classes_auth_icon' => '',
+        'classes_auth_btn' => 'btn-flat btn-primary',
+    */
+    'classes_auth_card' => 'bg-gradient-light',
+    'classes_auth_header' => 'bg-gradient-orange text-white',
+    'classes_auth_body' => 'bg-gradient-light',
+    'classes_auth_footer' => 'text-center',
+    'classes_auth_icon' => 'fa-lg text-orange',
+    'classes_auth_btn' => 'btn-flat btn-info',    
 
     /*
     |--------------------------------------------------------------------------
@@ -212,10 +223,20 @@ return [
     | For detailed instructions you can look the sidebar section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
+    
+        'sidebar_mini' => 'lg',
+        'sidebar_collapse' => false,
+        'sidebar_collapse_auto_size' => false,
+        'sidebar_collapse_remember' => false,
+        'sidebar_collapse_remember_no_transition' => true,
+        'sidebar_scrollbar_theme' => 'os-theme-light',
+        'sidebar_scrollbar_auto_hide' => 'l',
+        'sidebar_nav_accordion' => true,
+        'sidebar_nav_animation_speed' => 300,
     */
 
-    'sidebar_mini' => 'lg',
-    'sidebar_collapse' => false,
+    'sidebar_mini' => false,
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
@@ -223,6 +244,7 @@ return [
     'sidebar_scrollbar_auto_hide' => 'l',
     'sidebar_nav_accordion' => true,
     'sidebar_nav_animation_speed' => 300,
+
 
     /*
     |--------------------------------------------------------------------------
@@ -306,6 +328,23 @@ return [
         ],
 
         // Sidebar items:
+
+        [
+            'text' => 'Inicio',
+            'url' => '/dashboard',
+            'icon' => 'fas fa-fw fa-home',
+            'topnav' => true,            
+        ],
+
+        
+        [
+            'text' => 'User',
+            'url' => '/dashboard',
+            'icon' => 'fas fa-fw fa-user',
+            'topnav' => true,            
+        ],
+
+
         [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
@@ -325,12 +364,12 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url' => 'admin/settings',
+            'url' => 'user/profile',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'change_password',
-            'url' => 'admin/settings',
+            'url' => 'user/profile',
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
@@ -425,7 +464,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -470,7 +509,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -541,5 +580,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];
