@@ -6,6 +6,7 @@
 @section('adminlte_css')
     @stack('css')
     @yield('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
 @section('classes_body', $layoutHelper->makeBodyClasses())
@@ -13,28 +14,28 @@
 @section('body_data', $layoutHelper->makeBodyData())
 
 @section('body')
-    <div class="content">
-        <h2>
-            contenido principal
-        </h2>
-
+    <div class="contenedor">
         <div class="card">
-            <div class="card-header"style="background-color: #ee7a00;">
-                <h4 style="color:#FFFFFF;"><strong>FORMULARIO DE REGISTRO</strong></h4>
+            <div class="card-header">
+                <h4><strong>FORMULARIO DE REGISTRO</strong></h4>
             </div>
             <div class="card-body">
                 <div class="card-title">
-                    <strong>Ingresa la informacion</strong>
+                    <h4 class="mb-2" style="color: #89194b;">
+                        <strong>
+                            {{ $tema->titulo }}
+                        </strong>
+                    </h4>
                 </div>
                 <div class="card-text">
                     <form action="{{route('registro.store')}}" method="post">
                         @csrf
+                        <input type="hidden" name="tema" value="{{ $tema->id }}">
                         <livewire:region/>
                     </form>
                 </div>
             </div>
         </div>
-
     </div>
 @stop
 

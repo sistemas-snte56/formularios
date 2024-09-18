@@ -338,7 +338,7 @@ return [
 
         
         [
-            'text' => 'Temas',
+            'text' => 'Tema',
             'route' => 'tema.index',
             'icon' => 'fas fa-fw fa-user',
             'topnav' => true,            
@@ -480,6 +480,13 @@ return [
                     'type' => 'css',
                     'asset' => false,
                     'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
+                ],
+
+
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => 'css/miestilo.css',
                 ],
 
             ],

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin\Genero;
 use App\Models\Registro;
+use App\Models\Admin\Tema;
+use App\Models\Admin\Genero;
+use App\Models\Admin\Usuario;
 use Illuminate\Http\Request;
 
 class RegistroController extends Controller
@@ -13,7 +15,8 @@ class RegistroController extends Controller
      */
     public function index()
     {
-        return view('registro');
+        $tema = Tema::findOrFail(2);
+        return view('registro', compact('tema'));
     }
 
     /**
@@ -39,10 +42,46 @@ class RegistroController extends Controller
             'email' => ['required','email'],
             'rfc' => ['required', 'regex:/^[a-zA-Z]{4}[0-9]{6}[a-zA-Z0-9]{3}$/'],
             // 'email' => ['required','email','unique:maestros,email,'.$maestro->id],
-            // $maestro->nombre = mb_strtoupper($request->input('nombre'), 'UTF-8');
         ]);
 
-        return $request;
+        // return $request;
+        $usuario = new Usuario();
+        $usuario->id_delegacion = $request->input('select_delegacion');
+        $usuario->id_tema = $request->input('tema');
+        $usuario->nombre = mb_strtoupper($request->input('nombre'),'UTF-8');
+        $usuario->apaterno = mb_strtoupper($request->input('apellido_paterno'),'UTF-8');
+        $usuario->amaterno = mb_strtoupper($request->input('apellido_materno'),'UTF-8');
+        $usuario->id_genero = $request->input('select_genero');
+        $usuario->email = $request->input('email');
+        $usuario->telefono = $request->input('telefono');
+        $usuario->rfc = mb_strtoupper($request->input('rfc'),'UTF-8');
+        $usuario->save();
+
+        /*
+
+
+
+  `id_delegacion` bigint unsigned NOT NULL,
+  `id_tema` bigint unsigned NOT NULL,
+  `nombre` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `apaterno` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `amaterno` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_genero` bigint unsigned NOT NULL,
+  `rfc` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `curp` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `npersonal` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `telefono` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `folio` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dirección` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cp` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ciudad` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `estado` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+
+
+        */
     }
 
     /**
