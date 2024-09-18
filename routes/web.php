@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TemaController;
+use App\Http\Controllers\RegistroController;
+use App\Http\Controllers\DelegacionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
+// Route::get('/', [RegistroController::class, 'index'])->name('registro');
+route::resource('/',RegistroController::class)->names('registro');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -25,4 +30,6 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    route::resource('admin/delegaciones', DelegacionController::class)->names('delegacion');
+    route::resource('admin/temas', TemaController::class)->names('tema');
 });

@@ -338,8 +338,8 @@ return [
 
         
         [
-            'text' => 'User',
-            'url' => '/dashboard',
+            'text' => 'Temas',
+            'route' => 'tema.index',
             'icon' => 'fas fa-fw fa-user',
             'topnav' => true,            
         ],
