@@ -15,14 +15,14 @@ class Region extends Component
     // public $select_delegacion = null;
     public $regionId;
     public $delegacionId;
-    public $generos;
+    // public $generos;
 
     // Inicializamos las variables del componente de Region
     public function mount()
     {
         $this->regiones = AdminRegion::all();
         $this->delegaciones = collect();
-        $this->generos = Genero::all();
+        // $this->generos = Genero::all();
 
         $this->regionId = old('select_region', $this->regionId);
         $this->delegacionId = old('select_delegacion', $this->delegacionId);
@@ -44,8 +44,12 @@ class Region extends Component
                                         ->get();
         
         // Si el valor actual de delegacionId no es válido para la nueva región, límpialo
-        if (!$this->delegaciones->contains('id', $this->delegacionId)) {
-            $this->delegacionId = null;
-        }      
+        // if (!$this->delegaciones->contains('id', $this->delegacionId)) {
+        //     $this->delegacionId = null;
+        // }      
+
+        // $this->delegacionId = old('select_delegacion', $this->delegacionId);
+
+        $this->delegacionId = null;
     }
 }

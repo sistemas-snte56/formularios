@@ -16,7 +16,12 @@ class RegistroController extends Controller
     public function index()
     {
         $tema = Tema::findOrFail(2);
-        return view('registro', compact('tema'));
+        // $generos = Genero::pluck('genero','id'); 
+        // Pluck para obtener un array de ID => nombre
+        $generos = Genero::pluck('genero', 'id')->toArray(); 
+
+
+        return view('registro', compact('tema','generos'));
     }
 
     /**
@@ -39,12 +44,15 @@ class RegistroController extends Controller
             'nombre' => ['required'],                        
             'apellido_paterno' => ['required'],  
             'telefono' => ['required','numeric','digits:10'],
-            'email' => ['required','email'],
+            // 'email' => ['required','email|unique:usuarios,email'],
+            // 'email' => ['required', 'email', 'unique:usuarios,email'],
+            'email' => 'required|email|unique:usuarios,email',
             'rfc' => ['required', 'regex:/^[a-zA-Z]{4}[0-9]{6}[a-zA-Z0-9]{3}$/'],
             // 'email' => ['required','email','unique:maestros,email,'.$maestro->id],
         ]);
 
-        // return $request;
+        return $request;
+        
         $usuario = new Usuario();
         $usuario->id_delegacion = $request->input('select_delegacion');
         $usuario->id_tema = $request->input('tema');
@@ -56,29 +64,33 @@ class RegistroController extends Controller
         $usuario->telefono = $request->input('telefono');
         $usuario->rfc = mb_strtoupper($request->input('rfc'),'UTF-8');
         $usuario->save();
+        
+        
+
+
 
         /*
 
 
 
-  `id_delegacion` bigint unsigned NOT NULL,
-  `id_tema` bigint unsigned NOT NULL,
-  `nombre` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `apaterno` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `amaterno` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `id_genero` bigint unsigned NOT NULL,
-  `rfc` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `curp` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `npersonal` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `telefono` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `folio` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `dirección` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cp` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ciudad` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `estado` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+            `id_delegacion` bigint unsigned NOT NULL,
+            `id_tema` bigint unsigned NOT NULL,
+            `nombre` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `apaterno` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `amaterno` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `id_genero` bigint unsigned NOT NULL,
+            `rfc` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `curp` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `npersonal` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `telefono` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `folio` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `dirección` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `cp` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `ciudad` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `estado` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+            `created_at` timestamp NULL DEFAULT NULL,
+            `updated_at` timestamp NULL DEFAULT NULL,
 
 
         */
