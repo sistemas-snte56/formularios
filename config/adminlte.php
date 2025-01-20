@@ -152,7 +152,7 @@ return [
     |
     */
 
-    'layout_topnav' => true,
+    'layout_topnav' => false,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => true,
@@ -344,6 +344,17 @@ return [
             'topnav' => true,            
         ],
 
+        [
+            'text' => 'Registro',
+            'route' => 'registro.index',
+            'icon' => 'fas fa-fw fa-plus',
+            'topnav' => true,            
+        ],
+
+
+
+
+        
 
         // [
         //     'type' => 'sidebar-menu-search',
@@ -596,8 +607,23 @@ return [
         ],
 
 
-
-
+        // Para subir archivos 
+        /**
+         * 
+         * BsCustomFileInput
+         * php artisan adminlte:plugins install --plugin=bsCustomFileInput
+         * 
+         */
+        'BsCustomFileInput' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/bs-custom-file-input/bs-custom-file-input.min.js',
+                ],
+            ],
+        ],
 
 
     ],

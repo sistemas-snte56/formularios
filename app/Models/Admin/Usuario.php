@@ -29,6 +29,13 @@ class Usuario extends Model
         'cp',
         'ciudad',
         'estado',
+        'codigo_id',
+        'codigo_qr',
+        'slug',  
+        'talon',        
+        'ine_frontal',        
+        'ine_reverso',        
+        'formato',        
     ];    
     /**
      * Get the Tema that owns the Usuarios

@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TemaController;
 use App\Http\Controllers\RegistroController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DelegacionController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,15 +23,16 @@ use App\Http\Controllers\DelegacionController;
 // });
 
 // Route::get('/', [RegistroController::class, 'index'])->name('registro');
-route::resource('/',RegistroController::class)->names('registro');
+Route::resource('/',RegistroController::class)->names('registro');
+Route::get('/buscador',[SearchController::class, 'index'])->name('buscar.index');
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     route::resource('admin/delegaciones', DelegacionController::class)->names('delegacion');
     route::resource('admin/temas', TemaController::class)->names('tema');
 });

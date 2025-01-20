@@ -22,14 +22,23 @@ return new class extends Migration
             $table->string('rfc',250)->nullable();
             $table->string('curp',250)->nullable();
             $table->string('npersonal',250)->nullable();
+            $table->string('nivel_educativo',250)->nullable();
             $table->string('email', 255)->unique()->nullable();
             $table->string('telefono',250)->nullable();
             $table->string('folio',250)->nullable();
+            $table->string('codigo_id', 250)->nullable();
+            $table->string('codigo_qr')->nullable();
             $table->string('dirección',250)->nullable();
             $table->string('cp',250)->nullable();
             $table->string('ciudad',250)->nullable();
             $table->string('estado',250)->nullable();
+            $table->string('talon')->nullable();
+            $table->string('ine_frontal')->nullable();
+            $table->string('ine_reverso')->nullable();
+            $table->string('formato')->nullable();            
+            $table->string('slug')->unique();            
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('id_delegacion')->references('id')->on('delegaciones');
             $table->foreign('id_tema')->references('id')->on('temas');
