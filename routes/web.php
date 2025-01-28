@@ -26,7 +26,7 @@ use App\Http\Controllers\SearchController;
 Route::resource('/',RegistroController::class)->names('registro');
 // Route::get('/usuario/buscar',[SearchController::class, 'index'])->name('usuario.buscar');
 Route::get('buscar/usuario',[SearchController::class,'buscar'])->name('buscar');
-Route::get('usuario/show/{codigo_id}', [SearchController::class, 'show'])->name('usuario.show');
+Route::get('usuario/show/', [SearchController::class, 'show'])->name('usuario.show');
 
 
 

@@ -72,17 +72,15 @@
                             <td> {{ $teacher->email }} </td>
                             <td> {{ $teacher->folio }} </td>
                             <td> 
-                                {!! Form::open(['url' => '#', 'method' => 'POST', 'style' => 'display: inline', 'target' => '_blank']) !!}
-                                    @csrf
-                                    {!! Form::button('<i class="fa fa-xl fa-fw fa-file-pdf"></i>', ['class' => 'btn btn-sm btn-default text-teal mx-1 shadow', 'type' => 'submit', 'title' => 'Talon']) !!}
-                                {!! Form::close() !!}
-                                <a href="#" class="btn btn-sm btn-default text-primary mx-1 shadow" >
-                                    <i class="fa fa-xl fa-fw fa-pen"></i>
+                                <a class="btn btn-sm btn-default text-success mx-1 shadow" title="Talón" onclick="openPagina('{{$teacher->talon}}'); return false;">
+                                    <i class="fa fa-xl fa-fw fa-file-pdf"></i>
                                 </a>
-                                {!! Form::open(['url' => '#', 'method' => 'DELETE', 'class' => 'formEliminar', 'title' => 'Eliminar' ,'style' => 'display: inline']) !!}
-                                    @csrf
-                                    {!! Form::button('<i class="fa fa-xl fa-fw fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-default text-danger mx-1 shadow']) !!}
-                                {!! Form::close() !!}                              
+                                <a class="btn btn-sm btn-default text-secundary mx-1 shadow" title="Talón" onclick="openPagina('{{$teacher->ine_frontal}}'); return false;" >
+                                    <i class="fa fa-xl fa-fw fa-credit-card"></i>
+                                </a>                            
+                                <a class="btn btn-sm btn-default text-primary mx-1 shadow" title="Talón" onclick="openPagina('{{$teacher->ine_reverso}}'); return false;" >
+                                    <i class="fa fa-xl fa-fw fa-credit-card"></i>
+                                </a>                            
                             </td>
                         </tr>
                     @endforeach
@@ -100,5 +98,13 @@
 @stop
 
 @section('js')
-
+    <script>
+        function openPagina(url) {
+            var anchoVentana = window.innerWidth * 0.7;
+            var altoVentana = window.innerHeight * 0.7;
+            var left = (window.innerWidth - anchoVentana) / 2;
+            var top = (window.innerHeight - altoVentana) / 2;
+            window.open(url, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=" + top + ",left=" + left + ",width=" + anchoVentana + ",height=" + altoVentana + ",titlebar=no,location=no");
+        }
+    </script>
 @stop

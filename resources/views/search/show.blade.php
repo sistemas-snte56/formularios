@@ -40,41 +40,45 @@
         }
     </style>
 </head>
-{{$usuario->nombre}}
-<body class="text-center">
-    <div class="contenido">
-        <img class="d-block mx-auto mt-4" src="{{ asset('assets/img/logo-snte56.svg') }}" alt="" width="420">
-        <h1 class="h3 mb-5 font-weight-normal">Resultados</h1>    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-        </tbody>
-    </table>
 
+<body class="text-rigth">
+
+    <div class="contenido">
+        <div class="card">
+            <div class="card-body">
+                <!-- Contenido principal del card -->
+                <img class="d-block mx-auto mt-4" src="{{ asset('assets/img/logo-snte56.svg') }}" alt="" width="420">
+                <div class="card-title mb-4">
+                    <!-- Fila con el botón de regresar -->
+                    <div style="margin-right:0px;" class="float-left">
+                        <a href="javascript:history.back()" class="btn btn-secondary"><i class="fa fa-sm fa-fw fa-home"></i>&nbsp;Regresar</a>
+                    </div>
+                </div> <br>
+
+                <h1 class="text-center h3 mb-5 font-weight-normal">Resultados</h1>    
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Región</th>
+                            <th scope="col">Delegación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($usuarios as $key => $usuario)
+                            <tr>
+                                <th scope="row">{{ $loop->iteration }}</th>
+                                <td>{{$usuario->nombre}} {{$usuario->apaterno}} {{$usuario->amaterno}}</td>
+                                <td>{{$usuario->delegacion->region->region}} - {{$usuario->delegacion->region->sede}}</td>
+                                <td>{{$usuario->delegacion->deleg_delegacional}}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
     </div>
 
     <!-- Bootstrap core JavaScript -->
