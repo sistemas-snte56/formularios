@@ -45,31 +45,28 @@ class RegistroController extends Controller
      */
     public function store(Request $request)
     {
+     
+
 
         $delegacion = Delegacion::where('id', $request->input('select_delegacion'))->first();
 
-        $request->validate([
-            // 'select_region' => ['required'],
-            'select_delegacion' => ['required'],
-            'select_genero' => ['required'],
-            'nombre' => ['required'],
-            'apellido_paterno' => ['required'],
-            // // // 'email' => ['required','email|unique:usuarios,email'],
-            // // // 'email' => ['required', 'email', 'unique:usuarios,email'],
-            'rfc' => ['required', 'regex:/^[a-zA-Z]{4}[0-9]{6}[a-zA-Z0-9]{3}$/'],
-            'numero_de_personal' => ['required','numeric'],
-            'select_nivel_educativo' => ['required'],
-            'email' => 'required|email|unique:usuarios,email|max:255',
-            // 'email' => 'required|email',
-            'telefono' => ['required','numeric','digits:10'],
-            'talon' => 'required|mimes:pdf,jpg,png,jpeg|max:5120', // 5 MB máximo
-            'ine_frontal' => 'required|mimes:pdf,jpg,png,jpeg|max:5120', // 5 MB máximo
-            'ine_reverso' => 'required|mimes:pdf,jpg,png,jpeg|max:5120', // 5 MB máximo
-            'formato' => 'required|mimes:pdf,jpg,png,jpeg|max:5120', // 5 MB máximo
+        $validated = $request->validate([
+            'select_delegacion' => 'required',
+            'nombre' => 'required|string|max:255',
+            'apellido_paterno' => 'required|string|max:255',
+            'select_genero' => 'required',
+            'rfc' => 'required|string|regex:/^[A-Za-z]{4}\d{6}[A-Za-z0-9]{3}$/',
+            'numero_de_personal' => 'required|numeric',
+            'telefono' => 'required|digits:10',
+            'email' => 'required|email',
+            'select_nivel_educativo' => 'required',
+            'talon' => 'required|mimes:pdf|max:10240',
+            'ine_frontal' => 'required|mimes:pdf,jpg,png,jpeg|max:10240',
+            'ine_reverso' => 'required|mimes:pdf,jpg,png,jpeg|max:10240',
         ]);
 
+        // dd($validated);  // Esto imprimirá los datos validados y detendrá la ejecución
 
-        // return $request->all();
 
         $talon = $request->file('talon');
         # cambiamos el nombre del archivo
@@ -94,9 +91,9 @@ class RegistroController extends Controller
         # cambiamos el nombre del archivo
         $nombreFormato = Str::slug($delegacion->region->region.'-'.$delegacion->deleg_delegacional.'-'.'formato-'.$request->input('nombre').'-'.$request->input('apellido_paterno').'-'.$request->input('apellido_materno'));
         # generamos la ruta del archivo para guardarlo en la db
-        $urlFormato = Storage::url($formato->storeAs('formatos/'.$delegacion->region->region,$nombreFormato.".".$formato->extension(),$this->disk));
+        // $urlFormato = Storage::url($formato->storeAs('formatos/'.$delegacion->region->region,$nombreFormato.".".$formato->extension(),$this->disk));
 
-        try {
+        // try {
             $usuario = new Usuario();
             $usuario->id_delegacion = $request->input('select_delegacion');
             $usuario->id_tema = $request->input('tema');
@@ -131,20 +128,25 @@ class RegistroController extends Controller
             $usuario->talon = $urlTalon;
             $usuario->ine_frontal = $urlIneAnverso;
             $usuario->ine_reverso = $urlIneReverso;
-            $usuario->formato = $urlFormato;
+            // $usuario->formato = $urlFormato;
     
     
             $usuario->save();
             return redirect()->back()->with('success_registro', 'Usuario guardado.');
 
-        } catch (\Exception $e) {
-            // Puedes loguear el error para el análisis posterior
-            // Log::error('Error al cargar el archivo: ' . $e->getMessage());
+        // } catch (\Exception $e) {
+        //     // Puedes loguear el error para el análisis posterior
+        //     // Log::error('Error al cargar el archivo: ' . $e->getMessage());
 
-            // Enviar una respuesta personalizada al usuario
-            return redirect()->back()->with('error_try', 'Ocurrió un error al cargar el archivo. ');
+        //     // Enviar una respuesta personalizada al usuario
+        //     // return redirect()->back()->with('error_try', 'Ocurrió un error al cargar el archivo. ');
 
-        }
+
+        //     return redirect()->back()->with('error_try', 'Ocurrió un error al cargar el archivo.')
+        //     ->with('error_details', $e->getMessage());  // Envía el detalle del error a la vista
+
+
+        // }
 
 
 
