@@ -275,8 +275,8 @@
                     <div class="mb-3">
                         <label for="talon" class="form-label">Talón de pago</label>
                         <input class="form-control" type="file" name="talon" id="talon"
-                            accept="application/pdf" required>
-                        <small class="text-muted">Su talón de pago debe ser en formato PDF</small>
+                            accept=".pdf, .jpg, .jpeg, .png" required>
+                        <small class="text-muted">Selecciona el archivo del talón de pago</small>
                         <div class="invalid-feedback">
                             El campo talón es requerido.
                         </div>
@@ -285,7 +285,7 @@
                     <div class="mb-3">
                         <label for="ine_frontal" class="form-label">Anverso INE</label>
                         <input class="form-control" type="file" name="ine_frontal" id="ine_frontal"
-                            accept="image/*" required>
+                            accept=".pdf, .jpg, .jpeg, .png" required>
                         <small class="text-muted">Selecciona la imagen frontal de su credencial</small>
                         <div class="invalid-feedback">
                             El campo anverso ine es requerido.
@@ -295,7 +295,7 @@
                     <div class="mb-3">
                         <label for="ine_reverso" class="form-label">Reverso INE</label>
                         <input class="form-control" type="file" name="ine_reverso" id="ine_reverso"
-                            accept="image/*" required>
+                            accept=".pdf, .jpg, .jpeg, .png" required>
                         <small class="text-muted">Selecciona la imagen reverso de su credencial</small>
                         <div class="invalid-feedback">
                             El campo reverso ine es requerido.
@@ -497,6 +497,7 @@
     @if ($errors->any())
         <script>
             let errorMessages = '';
+            
             @foreach ($errors->all() as $error)
                 errorMessages += '{{ $error }}\n';
             @endforeach

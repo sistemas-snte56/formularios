@@ -49,6 +49,7 @@ class RegistroController extends Controller
 
 
         $delegacion = Delegacion::where('id', $request->input('select_delegacion'))->first();
+        $carpetaRegion = Str::slug($delegacion->region->region);
 
         $validated = $request->validate([
             'select_delegacion' => 'required',
@@ -60,7 +61,7 @@ class RegistroController extends Controller
             'telefono' => 'required|digits:10',
             'email' => 'required|email',
             'select_nivel_educativo' => 'required',
-            'talon' => 'required|mimes:pdf|max:10240',
+            'talon' => 'required|mimes:pdf,jpg,png,jpeg|max:10240',
             'ine_frontal' => 'required|mimes:pdf,jpg,png,jpeg|max:10240',
             'ine_reverso' => 'required|mimes:pdf,jpg,png,jpeg|max:10240',
         ]);
@@ -72,28 +73,30 @@ class RegistroController extends Controller
         # cambiamos el nombre del archivo
         $nombreTalon = Str::slug($delegacion->region->region.'-'.$delegacion->deleg_delegacional.'-'.'talon_de_pago-'.$request->input('nombre').'-'.$request->input('apellido_paterno').'-'.$request->input('apellido_materno'));
         # generamos la ruta del archivo para guardarlo en la db
-        $urlTalon = Storage::url($talon->storeAs('talones/'.$delegacion->region->region,$nombreTalon.".".$talon->extension(),$this->disk));
+        $urlTalon = Storage::url($talon->storeAs('talones/'.$carpetaRegion,$nombreTalon.".".$talon->extension(),$this->disk));
+
+        
 
 
         $ine_anverso = $request->file('ine_frontal');
         # cambiamos el nombre del archivo
         $nombreIneAnverso = Str::slug($delegacion->region->region.'-'.$delegacion->deleg_delegacional.'-'.'ine_anverso-'.$request->input('nombre').'-'.$request->input('apellido_paterno').'-'.$request->input('apellido_materno'));
         # generamos la ruta del archivo para guardarlo en la db
-        $urlIneAnverso = Storage::url($ine_anverso->storeAs('ine_anversos/'.$delegacion->region->region,$nombreIneAnverso.".".$ine_anverso->extension(),$this->disk));
+        $urlIneAnverso = Storage::url($ine_anverso->storeAs('ine_anversos/'.$carpetaRegion,$nombreIneAnverso.".".$ine_anverso->extension(),$this->disk));
 
         $ine_reverso = $request->file('ine_reverso');
         # cambiamos el nombre del archivo
         $nombreIneReverso = Str::slug($delegacion->region->region.'-'.$delegacion->deleg_delegacional.'-'.'ine_reverso-'.$request->input('nombre').'-'.$request->input('apellido_paterno').'-'.$request->input('apellido_materno'));
         # generamos la ruta del archivo para guardarlo en la db
-        $urlIneReverso = Storage::url($ine_reverso->storeAs('ine_reversos/'.$delegacion->region->region,$nombreIneReverso.".".$ine_reverso->extension(),$this->disk));
+        $urlIneReverso = Storage::url($ine_reverso->storeAs('ine_reversos/'.$carpetaRegion,$nombreIneReverso.".".$ine_reverso->extension(),$this->disk));
 
         $formato = $request->file('formato');
         # cambiamos el nombre del archivo
         $nombreFormato = Str::slug($delegacion->region->region.'-'.$delegacion->deleg_delegacional.'-'.'formato-'.$request->input('nombre').'-'.$request->input('apellido_paterno').'-'.$request->input('apellido_materno'));
         # generamos la ruta del archivo para guardarlo en la db
-        // $urlFormato = Storage::url($formato->storeAs('formatos/'.$delegacion->region->region,$nombreFormato.".".$formato->extension(),$this->disk));
+        // $urlFormato = Storage::url($formato->storeAs('formatos/'.$carpetaRegion,$nombreFormato.".".$formato->extension(),$this->disk));
 
-        // try {
+        try {
             $usuario = new Usuario();
             $usuario->id_delegacion = $request->input('select_delegacion');
             $usuario->id_tema = $request->input('tema');
@@ -134,81 +137,19 @@ class RegistroController extends Controller
             $usuario->save();
             return redirect()->back()->with('success_registro', 'Usuario guardado.');
 
-        // } catch (\Exception $e) {
-        //     // Puedes loguear el error para el análisis posterior
-        //     // Log::error('Error al cargar el archivo: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            // Puedes loguear el error para el análisis posterior
+            // Log::error('Error al cargar el archivo: ' . $e->getMessage());
 
-        //     // Enviar una respuesta personalizada al usuario
-        //     // return redirect()->back()->with('error_try', 'Ocurrió un error al cargar el archivo. ');
-
-
-        //     return redirect()->back()->with('error_try', 'Ocurrió un error al cargar el archivo.')
-        //     ->with('error_details', $e->getMessage());  // Envía el detalle del error a la vista
+            // Enviar una respuesta personalizada al usuario
+            // return redirect()->back()->with('error_try', 'Ocurrió un error al cargar el archivo. ');
 
 
-        // }
+            return redirect()->back()->with('error_try', 'Ocurrió un error al cargar el archivo.')
+            ->with('error_details', $e->getMessage());  // Envía el detalle del error a la vista
 
 
-
-        // dd($usuario);
-
-
-
-
-
-
-
-
-            // $ine_anverso = $request->file('ine_frontal');
-            // $nombreTalon = Str::slug($delegacion->region->region.'-'.$delegacion->deleg_delegacional.'-'.'ine_anverso-'.$request->input('nombre').'-'.$request->input('apellido_paterno').'-'.$request->input('apellido_materno'));
-
-            // // return $talon->storeAs('/images',$nombreTalon.".".$talon->extension(),$this->disk);
-
-            // $urlTalon = Storage::url($ine_anverso->storeAs('/images',$nombreTalon.".".$ine_anverso->extension(),$this->disk));
-
-            // return $urlTalon;
-
-            // $filePath = $request->file('ine_frontal')->store('uploads');
-            // $filePath = $request->file('ine_reverso')->store('uploads');
-            // $filePath = $request->file('talon')->store('uploads');
-
-
-
-            // Generar un slug basado en el nombre completo
-
-
-
-
-
-        /*
-        // Verificar si el archivo fue subido correctamente
-        if ($request->hasFile('talon') && $request->file('talon')->isValid()) {
-            // Mover el archivo a la carpeta 'uploads' dentro de 'storage/app'
-            $filePath = $request->file('talon')->store('uploads');
-
-
-
-            return $filePath;
-
-            $usuario = new Usuario();
-            $usuario->id_delegacion = $request->input('select_delegacion');
-            $usuario->id_tema = $request->input('tema');
-            $usuario->nombre = mb_strtoupper($request->input('nombre'),'UTF-8');
-            $usuario->apaterno = mb_strtoupper($request->input('apellido_paterno'),'UTF-8');
-            $usuario->amaterno = mb_strtoupper($request->input('apellido_materno'),'UTF-8');
-            $usuario->id_genero = $request->input('select_genero');
-            $usuario->email = $request->input('email');
-            $usuario->telefono = $request->input('telefono');
-            $usuario->rfc = mb_strtoupper($request->input('rfc'),'UTF-8');
-
-            $usuario->talon = $filePath;
-            $usuario->save();
-
-            // return back()->with('success', 'Archivo subido correctamente');
-        } else {
-            return back()->with('error', 'Hubo un problema al cargar el archivo');
-        }*/
-
+        }
 
     }
 
