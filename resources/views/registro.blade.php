@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <meta name="theme-color" content="#563d7c">
     <title>Sección 56 :: SNTE</title>
-    <link rel="icon" href="{{ asset('assets/img/favicons/favicon.ico') }}">
+    <link rel="icon" href="{{ asset('assets/img/favicons/icon.png') }}">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Bootstrap core CSS -->

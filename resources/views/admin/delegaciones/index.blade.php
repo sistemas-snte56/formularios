@@ -14,9 +14,11 @@
             <h4 style="color:#FFFFFF;"><strong>FORMULARIO DE REGISTRO</strong></h4>
         </div>
         <div class="card-body">
-            <div class="card-title">
-                <strong>LISTA GENERAL</strong>
-            </div>
+            <div class="card-title mb-4">
+                <a href="{{ route('delegacion.create') }}" class="btn bg-primary float-right">
+                    <i class="fa fa-sm fa-fw fa-pen"></i> Nueva Delegación
+                </a>                
+            </div>            
             <div class="card-text">
                 {{-- Setup data for datatables --}}
                 @php
@@ -91,5 +93,17 @@
 @stop
 
 @section('js')
-
+    @if(session('success_delegacion'))
+        <script>
+            $(document).ready(function(){
+                let mensaje = "{{ session ('success_delegacion') }}"
+                Swal.fire({
+                    icon: 'success',
+                    title: mensaje,
+                    text: 'La delegación que registraste se guardo satisfactoriamente.',
+                    showConfirmButton: true,
+                });
+            });
+        </script>
+    @endif 
 @stop

@@ -351,6 +351,13 @@ return [
             'topnav' => true,            
         ],
 
+        [
+            'text' => 'Delegaciones',
+            'route' => 'delegacion.index',
+            'icon' => 'fas fa-fw fa-plus',
+            'topnav' => true,            
+        ],
+
 
 
 
@@ -533,7 +540,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],
