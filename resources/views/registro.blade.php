@@ -203,6 +203,7 @@
                             <input type="email" class="form-control @error('email') is-invalid @enderror"
                                 name="email" id="email" placeholder="usuario@email.com"
                                 value="{{ old('email') }}" required autocomplete="email">
+                                <small class="text-muted">El correo electrónico es unico para cada registro</small>
                             <div class="invalid-feedback">
                                 <ul>
                                     <li><strong>El campo email es requerido.</strong></li>

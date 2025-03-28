@@ -61,9 +61,9 @@ class RegistroController extends Controller
             'telefono' => 'required|digits:10',
             'email' => 'required|email',
             'select_nivel_educativo' => 'required',
-            'talon' => 'required|mimes:pdf,jpg,png,jpeg|max:10240',
-            'ine_frontal' => 'required|mimes:pdf,jpg,png,jpeg|max:10240',
-            'ine_reverso' => 'required|mimes:pdf,jpg,png,jpeg|max:10240',
+            'talon' => 'required|mimes:pdf,jpg,png,jpeg|max:20480 ',
+            'ine_frontal' => 'required|mimes:pdf,jpg,png,jpeg|max:20480 ',
+            'ine_reverso' => 'required|mimes:pdf,jpg,png,jpeg|max:20480 ',
         ]);
 
         // dd($validated);  // Esto imprimirá los datos validados y detendrá la ejecución
