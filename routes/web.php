@@ -5,6 +5,7 @@ use App\Http\Controllers\TemaController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DelegacionController;
+use App\Http\Controllers\NEMController;
 use App\Http\Controllers\SearchController;
 
 /*
@@ -23,11 +24,22 @@ use App\Http\Controllers\SearchController;
 // });
 
 // Route::get('/', [RegistroController::class, 'index'])->name('registro');
-Route::resource('/',RegistroController::class)->names('registro');
-// Route::get('/usuario/buscar',[SearchController::class, 'index'])->name('usuario.buscar');
+route::resource('/',RegistroController::class)->names('registro');
+
 Route::get('buscar/usuario',[SearchController::class,'buscar'])->name('buscar');
 Route::get('usuario/show/', [SearchController::class, 'show'])->name('usuario.show');
 
+route::resource('/nem_constancias',NEMController::class)->names('nem');
+route::get('/descargar-reconocimiento/{rfc}', function($rfc){
+    $pdfPath = public_path('pdfs/nem_reconocimientos56'.$rfc.'pdf');
+
+    // Verifica si el archivo existe
+    if (file_exists($pdfPath)) {
+        return response()->download($pdfPath);
+    }
+
+    return response()->json(['error' => 'Archivo no encontrado.'], 404);    
+});
 
 
 Route::middleware([

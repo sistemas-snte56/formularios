@@ -23,7 +23,7 @@ class RegistroController extends Controller
     private $disk = "public";
 
     public function index()
-    {
+    {        
         $tema = Tema::findOrFail(1);
         // $generos = Genero::pluck('genero','id');
         // Pluck para obtener un array de ID => nombre
