@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use App\Models\NEM;
 use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class ReconocimientoNuevaEscuela extends Component
 {
@@ -14,7 +16,7 @@ class ReconocimientoNuevaEscuela extends Component
     {
         $this->rfc = strtoupper($this->rfc);
 
-        info($this->rfc);
+        // info($this->rfc);
 
         // Validar el RFC
         $this->validate([
@@ -39,28 +41,44 @@ class ReconocimientoNuevaEscuela extends Component
     public function downloadPdf()
     {
 
-        // info($this->userData->rfc);
+        // // info($this->userData->rfc);
 
 
 
-        // info("entrar al metodo");
-        if ($this->userData) {
-            // Crear la URL para descargar el PDF
-            $pdfUrl = asset('assets/pdfs/nem_reconocimientos56/' . $this->userData->rfc . '.pdf');
-            // info($pdfUrl);
+        // // info("entrar al metodo");
+        // if ($this->userData) {
+        //     // Crear la URL para descargar el PDF
+        //     $pdfUrl = asset('assets/pdfs/nem_reconocimientos56/' . $this->userData->rfc . '.pdf');
+        //     // info($pdfUrl);
     
+        //     // Verifica si el archivo existe
+        //     if (file_exists(public_path('assets/pdfs/nem_reconocimientos56/' . $this->userData->rfc . '.pdf'))) {
+        //         // Redirige al navegador para iniciar la descarga
+        //         return redirect()->to($pdfUrl);
+        //     } else {
+        //         session()->flash('error', 'PDF no encontrado para este RFC.');
+        //     }
+        // } else {
+        //     session()->flash('error', 'No se ha encontrado un usuario con este RFC.');
+        // }
+        // $this->rfc='';
+        // $this->userData = '';
+
+
+        if ($this->userData) {
+            $filePath = public_path('assets/pdfs/nem_reconocimientos56/' . $this->userData->rfc . '.pdf');
+        
             // Verifica si el archivo existe
-            if (file_exists(public_path('assets/pdfs/nem_reconocimientos56/' . $this->userData->rfc . '.pdf'))) {
-                // Redirige al navegador para iniciar la descarga
-                return redirect()->to($pdfUrl);
+            if (file_exists($filePath)) {
+                return Response::download($filePath);
             } else {
                 session()->flash('error', 'PDF no encontrado para este RFC.');
             }
+            
         } else {
             session()->flash('error', 'No se ha encontrado un usuario con este RFC.');
         }
-
-        $this->userData = '';
+        
     }
 
 

@@ -15,6 +15,11 @@ class NEMController extends Controller
         return view('nueva-escuela');
     }
 
+    public function show_nem()
+    {
+        return view('reconocimiento_nem');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

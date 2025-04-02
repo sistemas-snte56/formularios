@@ -29,7 +29,9 @@ route::resource('/',RegistroController::class)->names('registro');
 Route::get('buscar/usuario',[SearchController::class,'buscar'])->name('buscar');
 Route::get('usuario/show/', [SearchController::class, 'show'])->name('usuario.show');
 
-route::resource('/nem_constancias',NEMController::class)->names('nem');
+route::get('reconocimientos_nem',[NEMController::class, 'show_nem'])->name('reconocimiento.nem');
+
+// route::resource('/nem_constancias',NEMController::class)->names('nem');
 route::get('/descargar-reconocimiento/{rfc}', function($rfc){
     $pdfPath = public_path('pdfs/nem_reconocimientos56'.$rfc.'pdf');
 

@@ -1,55 +1,59 @@
 <div>
-    <div style="margin-top: 150px;margin-bottom: 150px;">
-        <form wire:submit.prevent="buscarRFC" >
+    <form wire:submit.prevent="buscarRFC">
+        <div class="row gy-3">
+            <div class="col-md-12">
+                <label for="cc-name" class="form-label"> <strong>RFC</strong> </label>
+                <input type="text" id="rfc" name="rfc" wire:model="rfc" class="form-control" placeholder="Ingresa tu RFC" required="">
 
-            <div class="mb-4">
-                <label for="rfc" class="block">RFC</label>
-                <input type="text" id="rfc" wire:model="rfc" class="border rounded px-4 py-2 w-full" placeholder="Ingresa el RFC" style="border: 1px solid gray;">
-            </div>
-
-            <div class="mb-4">
-                <div style="color: #f87171; font-size: 0.875rem; margin-left: 5px; margin-top: 5px;">
-                    <!-- Mostrar errores de validación -->
-                    @error('rfc') 
-                        <span >
+                <div class="my-4">
+                    @error('rfc')
+                        <small class="text-danger">
                             {{ $message }}
-                        </span>
+                        </small>
                     @enderror
-                </div>
-            </div>
-        
-            <div class="mb-4">
-                <div style="color: #f87171; font-size: 0.875rem; margin-left: 5px; margin-top: 5px;">
+
                     @if (session()->has('error'))
-                        <div class="mt-2 text-red-500">
+                        <small class="text-danger">
                             {{ session('error') }}
-                        </div>
+                        </small>
                     @endif
                 </div>
             </div>
-        
-            <button type="submit" class="btn btn-primary text-white px-4 py-2 rounded">Buscar</button>
-        
+        </div>
 
-        </form>
+        <button class="btn btn-primary  px-4 py-2" type="submit">Buscar</button>
 
-
+    </form>
 
 
-        <hr>
 
 
-        <!-- Mostrar datos si el RFC es encontrado -->
-        @if ($userData)
-            <div class="mt-4">
-                <p><strong>Nombre:</strong> {{ $userData->nombre }} {{ $userData->apaterno }} {{ $userData->amaterno }}</p>
+    <!-- Mostrar datos si el RFC es encontrado -->
+    @if ($userData)
+        <div class="mt-4">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">NOMBRE</th>
+                        <th scope="col">APELLIDO PATERNO</th>
+                        <th scope="col">APELLIDO MATERNO</th>
+                        <th scope="col">ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ $userData->nombre }}</td>
+                        <td>{{ $userData->apaterno }}</td>
+                        <td>{{ $userData->amaterno }}</td>
+                        <td>
+                            <button wire:click="downloadPdf" class="btn btn-success px-4 py-2">
+                                Descargar PDF
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    @endif
 
-                <!-- Botón para descargar el PDF -->
-                <button wire:click="downloadPdf" class="btn bg-green-500 text-orange px-4 py-2 rounded mt-2">
-                    Descargar PDF
-                </button>
-            </div>
-        @endif
-
-    </div>
 </div>
