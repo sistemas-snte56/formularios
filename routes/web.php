@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NEMController;
 use App\Http\Controllers\TemaController;
+use App\Http\Controllers\CursoController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DelegacionController;
-use App\Http\Controllers\NEMController;
-use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ParticipanteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,15 +21,20 @@ use App\Http\Controllers\SearchController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('my-home');
+});
 
 // Route::get('/', [RegistroController::class, 'index'])->name('registro');
-route::resource('/',RegistroController::class)->names('registro');
+// route::resource('/',RegistroController::class)->names('registro');
 
-Route::get('buscar/usuario',[SearchController::class,'buscar'])->name('buscar');
-Route::get('usuario/show/', [SearchController::class, 'show'])->name('usuario.show');
+// Route::get('buscar/usuario',[SearchController::class,'buscar'])->name('buscar');
+// Route::get('usuario/show/', [SearchController::class, 'show'])->name('usuario.show');
+
+
+
+
+
 
 route::get('reconocimientos_nem',[NEMController::class, 'show_nem'])->name('reconocimiento.nem');
 
@@ -52,4 +59,7 @@ Route::middleware([
     route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     route::resource('admin/delegaciones', DelegacionController::class)->names('delegacion');
     route::resource('admin/temas', TemaController::class)->names('tema');
+
+    route::get('/admin/cursos/',[CursoController::class,'index'])->name('cursos.index');
+    route::get('/admin/participantes/',[ParticipanteController::class,'index'])->name('participantes.index');
 });
