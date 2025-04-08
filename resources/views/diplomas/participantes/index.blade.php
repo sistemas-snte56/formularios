@@ -19,6 +19,12 @@
                     @livewire('participantes')
                 </div>
             </div>
+
+            <div class="card">
+                <div class="card-body">
+                    @livewire('importar-participantes')
+                </div>
+            </div>
         </div>
 
 @stop

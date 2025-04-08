@@ -12,7 +12,7 @@ class Participante extends Model
 
     protected $table = "participantes";
     protected $fillable = [
-        'curso_id',
+        // 'curso_id',
         'rfc',
         'nombre',
         'apaterno',
