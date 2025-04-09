@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\BuscarDiploma;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NEMController;
 use App\Http\Controllers\TemaController;
@@ -24,6 +25,14 @@ use App\Http\Controllers\ParticipanteController;
 Route::get('/', function () {
     return view('my-home');
 });
+
+// Route::get('/diplomados-evaluacion-formativa', BuscarDiploma::class);
+
+
+Route::get('/diplomados-evaluacion-formativa', function () {
+    return view('diplomas.diplomados-evaluacion-formativa');
+})->name('diplomados-evaluacion-formativa');
+
 
 // Route::get('/', [RegistroController::class, 'index'])->name('registro');
 // route::resource('/',RegistroController::class)->names('registro');
