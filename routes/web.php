@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConsultarDiplomaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NEMController;
 use App\Http\Controllers\TemaController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DelegacionController;
 use App\Http\Controllers\ParticipanteController;
+use App\Livewire\ConsultarDiploma;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +34,11 @@ Route::get('/', function () {
 // Route::get('usuario/show/', [SearchController::class, 'show'])->name('usuario.show');
 
 
+route::get('/evaluacion-formativa',[ConsultarDiplomaController::class,'index'])->name('evaluacion.formativa');
+// route::get('evaluacion-formativa/{rfc}',[ConsultarDiploma::class, 'show'])->name('evaluacion.formativa.show');
 
 
+route::get('evaluacion-formativa/descargar/{folio}',[ConsultarDiplomaController::class, 'download'])->name('evaluacion.formativa.download');
 
 
 route::get('reconocimientos_nem',[NEMController::class, 'show_nem'])->name('reconocimiento.nem');
